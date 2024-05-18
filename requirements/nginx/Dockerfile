@@ -15,21 +15,21 @@ RUN apt-get update && apt-get install -y openssl nginx
 #-sha256 to specify the -sha256 hash algorithm in generating the certificate
 #-days 365 to specify the validity period of the cert
 #-nodes to specify that it shouldn't be encrypted with a paraphrase
-RUN mkdir /etc/nginx/ssl
+RUN mkdir -p /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 		-out /etc/nginx/ssl/otuyishi.crt \
 		-keyout /etc/nginx/ssl/otuyishi.key \
-		-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42 Heilbronn/OU=otuyishi/CN=otuyishi/" \
-		-addtext "tls_feature = status_request, status_request_v2, status_request_v3"
+		-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42 Heilbronn/OU=otuyishi/CN=otuyishi/"
 
 #let's make a copy of the local folder of our nginx configs into the container of this image
-COPY ./conf/nginx.conf /etc/nginx/conf.d
+COPY ./conf/nginx.d /etc/nginx/conf.d
 
 #now create a temporary directory for storing runtime files by nginx, the -p cmd flag to create intermediate directories (such as run in this case). In case (run) does not exist therefore avoid the error
 RUN mkdir -p /run/nginx
 
 #Obligated port, where the container listens on specific network port at runtime. In this case, EXPOSE 443.
-EXPOSE 443
+#443 
+EXPOSE 80
 
-#start nginx, our main service in this image creation
+#start nginx, our main service in this image creation in foreground
 CMD [ "nginx", "-g", "daemon off;" ]
