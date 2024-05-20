@@ -1,11 +1,15 @@
-#base image debian
 FROM debian:latest
 
-RUN apt-get update && apt-get install -y --no-cache mariadb mariadb-client
+RUN apt-get update && apt-get install -y nginx openssl
 
-EXPOSE 3306
+RUN mkdir -p /etc/nginx/ssl && \
+	openssl req -nodes -newkey rsa:4096 -x509 -sha256 -days 365 \
+    -out /etc/nginx/ssl/otuyishi.crt \
+    -keyout /etc/nginx/ssl/otuyishi.key \
+    -subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42 Heilbronn/OU=otuyishi/CN=otuyishi/"
 
-HEALTHCHECK --start-period=5m \
-  CMD mariadb -e 'SELECT @@datadir;' || exit 1
+COPY ./conf/default /etc/nginx/sites-enabled
 
-CMD [ "mariadb" ]
+EXPOSE 443
+
+CMD ["nginx", "-g", "daemon off;"]
