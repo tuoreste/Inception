@@ -1,11 +1,14 @@
-#base image debian
 FROM debian:latest
 
-RUN apt-get update && apt-get install -y --no-cache mariadb mariadb-client
+RUN apt-get update && \
+    apt-get install -y mariadb-server mariadb-client
 
-EXPOSE 3306
+RUN mkdir -p /tools
 
-HEALTHCHECK --start-period=5m \
-  CMD mariadb -e 'SELECT @@datadir;' || exit 1
+COPY ./tools/.env /tools/.env
+COPY ./tools/mdb_init.sql /tools/mdb_init.sql
+COPY ./tools/setup.sh /tools/setup.sh
 
-CMD [ "mariadb" ]
+RUN chmod +x /tools/setup.sh
+
+CMD ["/tools/setup.sh"]
