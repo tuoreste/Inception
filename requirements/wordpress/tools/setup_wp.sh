@@ -4,7 +4,8 @@
 # export $(grep -v '^#' ./tools/.env | xargs)
 
 # Define vars
-WORDPRESS_DIR="/var/www/html/wordpress"
+WORDPRESS_DIR="/var/www/wordpress"
+
 # WORDPRESS_DOWNLOAD_URL="https://wordpress.org/latest.tar.gz"
 # WORDPRESS_ARCHIVE="latest.tar.gz"
 
@@ -15,11 +16,11 @@ WORDPRESS_DIR="/var/www/html/wordpress"
 # fi
 
 # Download WP
-echo "Downloading WordPress..."
+echo "Downloading & installing WordPress..."
 # wget $WORDPRESS_DOWNLOAD_URL -O $WORDPRESS_ARCHIVE
 
 # Extraction of WP
-echo "Extracting WordPress..."
+# echo "Extracting WordPress..."
 # tar -xzf $WORDPRESS_ARCHIVE
 # mv wordpress $WORDPRESS_DIR
 # rm $WORDPRESS_ARCHIVE
@@ -27,7 +28,7 @@ echo "Extracting WordPress..."
 # Create wp-config.php using WP-CLI
 echo "Configuring WordPress with WP-CLI..."
 # cd $WORDPRESS_DIR
-wp config create --dbname=db --dbuser=user --dbpass=123 --dbhost=db:3306 --path=$WORDPRESS_DIR
+wp config create --dbname=db --dbuser=user --dbpass=123 --dbhost=db:3306
 
 # Set permissions
 echo "Setting permissions..."
@@ -35,4 +36,6 @@ echo "Setting permissions..."
 # chmod -R 755 /var/www/wordpress
 
 echo "WordPress installation and configuration completed."
-php8-fpm -F
+
+sleep 1000
+# php-fpm8.2 -F
