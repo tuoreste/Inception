@@ -1,37 +1,38 @@
 #!/bin/bash
 
-# Load environment variables from .env file
-export $(grep -v '^#' .env | xargs)
+# Load env vars 4rm .env file
+# export $(grep -v '^#' ./tools/.env | xargs)
 
-# Define variables
+# Define vars
 WORDPRESS_DIR="/var/www/html/wordpress"
-WORDPRESS_DOWNLOAD_URL="https://wordpress.org/latest.tar.gz"
-WORDPRESS_ARCHIVE="latest.tar.gz"
+# WORDPRESS_DOWNLOAD_URL="https://wordpress.org/latest.tar.gz"
+# WORDPRESS_ARCHIVE="latest.tar.gz"
 
-# Check if WordPress is already installed by checking for wp-config.php
-if [ -f "$WORDPRESS_DIR/wp-config.php" ]; then
-	echo "WordPress is already installed in $WORDPRESS_DIR."
-	exit 0
-fi
+# Check if WP is already installed by checking for wp-config.php
+# if [ -f "$WORDPRESS_DIR/wp-config.php" ]; then
+# 	echo "WordPress is already installed in $WORDPRESS_DIR."
+# 	exit 0
+# fi
 
-# Download WordPress
+# Download WP
 echo "Downloading WordPress..."
-wget $WORDPRESS_DOWNLOAD_URL -O $WORDPRESS_ARCHIVE
+# wget $WORDPRESS_DOWNLOAD_URL -O $WORDPRESS_ARCHIVE
 
-# Extract WordPress
+# Extraction of WP
 echo "Extracting WordPress..."
-tar -xzf $WORDPRESS_ARCHIVE
-mv wordpress $WORDPRESS_DIR
-rm $WORDPRESS_ARCHIVE
+# tar -xzf $WORDPRESS_ARCHIVE
+# mv wordpress $WORDPRESS_DIR
+# rm $WORDPRESS_ARCHIVE
 
 # Create wp-config.php using WP-CLI
 echo "Configuring WordPress with WP-CLI..."
-cd $WORDPRESS_DIR
-wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=db:3306 --path=$WORDPRESS_DIR
+# cd $WORDPRESS_DIR
+wp config create --dbname=db --dbuser=user --dbpass=123 --dbhost=db:3306 --path=$WORDPRESS_DIR
 
 # Set permissions
 echo "Setting permissions..."
-chown -R www-data:www-data $WORDPRESS_DIR
-chmod -R 755 $WORDPRESS_DIR
+# chown -R www-data:www-data /var/www/wordpress
+# chmod -R 755 /var/www/wordpress
 
 echo "WordPress installation and configuration completed."
+php8-fpm -F

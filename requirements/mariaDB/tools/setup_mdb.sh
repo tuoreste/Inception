@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -o allexport
-source /tools/.env
+source requirements/.env
 set +o allexport
 
 mariadb_init_file="/tools/mdb_init.sql"
