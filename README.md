@@ -23,6 +23,7 @@ Before starting, ensure you have the following installed on your machine:
 
 The project directory is organized as follows:
 
+/Inception
 /requirement
 |-- docker-compose.yml
 |-- Makefile
