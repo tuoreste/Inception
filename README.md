@@ -23,8 +23,19 @@ Before starting, ensure you have the following installed on your machine:
 
 The project directory is organized as follows:
 
-
--->to be added
+/requirement
+|-- docker-compose.yml
+|-- Makefile
+|-- .env
+|-- Dockerfile.wordpress
+|-- Dockerfile.nginx
+|-- Dockerfile.mariadb
+|-- tools/
+|   |-- setup_wp.sh
+|   |-- setup_mdb.sh
+|   |-- mdb_init.sql
+|-- conf/
+|   |-- default
 
 
 ## Setup Details
