@@ -1,7 +1,10 @@
+#docker-Compose version
 version: '3.8'
 
+#services will tell us different services(containers) that are being used
 services:
   wordpress:
+    #build specifies how to build docker image for this services 
     build:
       context: .
       dockerfile: Dockerfile.wordpress
@@ -31,13 +34,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.mariadb
-      image: mariadb
-      ports:
-        - 3306:3306
-      network: inception
-      volumes: database:/var/lib/mysql
-      env_file:
-        - .env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
