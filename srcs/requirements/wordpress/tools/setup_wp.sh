@@ -4,6 +4,11 @@ set -o allexport
 source /tools/.env
 set +o allexport
 
+mkdir -p /home/otuyishi/data/wordpress_data
+mkdir -p /home/otuyishi/data/nginx_conf
+mkdir -p /home/otuyishi/data/ssl_cert
+mkdir -p /home/otuyishi/data/mariadb_data
+
 wp core config --path=/var/www/wordpress \
     --dbname="${WORDPRESS_DB_NAME}" \
     --dbuser="${WORDPRESS_DB_USER}" \

@@ -18,4 +18,4 @@ RUN chown -R www-data:www-data /var/www/wordpress
 
 USER www-data
 
-CMD ["/tools/setup_wp.sh"]
+CMD ["/bin/bash", "/tools/setup_wp.sh"]
