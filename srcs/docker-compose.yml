@@ -1,4 +1,21 @@
-version: '3.8'
+networks:
+  inceptionnet:
+    driver: bridge
+    name: inceptionnet
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/otuyishi/data/wordpress_data
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/otuyishi/data/mariadb_data
+      o: bind
 
 services:
   mariadb:
@@ -74,22 +91,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 77
-
-networks:
-  inceptionnet:
-    driver: bridge
-    name: inceptionnet
-
-volumes:
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/otuyishi/data/wordpress_data
-      o: bind
-  mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/otuyishi/data/mariadb_data
-      o: bind

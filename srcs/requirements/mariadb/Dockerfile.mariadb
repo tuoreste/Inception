@@ -1,7 +1,6 @@
 FROM debian:12.0
 
-RUN mkdir -p /otuyishi/data/mariadb_data/ && \
-	apt-get update && \
+RUN apt-get update && \
 	apt-get install -y mariadb-server mariadb-client
 
 COPY tools/setup_mdb.sh /usr/local/bin/setup_mdb.sh

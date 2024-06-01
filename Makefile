@@ -6,27 +6,40 @@
 #    By: otuyishi <otuyishi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 17:58:23 by otuyishi          #+#    #+#              #
-#    Updated: 2024/05/30 20:23:24 by otuyishi         ###   ########.fr        #
+#    Updated: 2024/05/31 19:16:41 by otuyishi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: build up down logs restart
+DOCKER_COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
-all:
-	cd ./srcs/ && docker compose up
+WORDPRESS_DATA = /home/otuyishi/data/wordpress_data
+
+MARIADB_DATA = /home/otuyishi/data/mariadb_data
+
+.PHONY: all build up down logs restart
+
+all: up
+
+create_volumes:
+	@mkdir -p $(WORDPRESS_DATA)
+	@mkdir -p $(MARIADB_DATA)
+
+delete_volumes:
+	@rm -rf $(WORDPRESS_DATA)
+	@rm -rf $(MARIADB_DATA)
 
 build:
-	docker-compose build
+	$(DOCKER_COMPOSE) build
 
 up:
-	docker-compose up -d
+	$(DOCKER_COMPOSE) up -d
 
 down:
-	docker-compose down
+	$(DOCKER_COMPOSE) down
 
 logs:
-	docker-compose logs -f
+	$(DOCKER_COMPOSE) logs -f
 
 restart:
-	docker-compose down
-	docker-compose up -d
+	$(DOCKER_COMPOSE) down
+	$(DOCKER_COMPOSE) up -d
