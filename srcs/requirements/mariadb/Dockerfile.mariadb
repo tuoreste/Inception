@@ -6,7 +6,8 @@ RUN apt-get update && \
 COPY tools/setup_mdb.sh /usr/local/bin/setup_mdb.sh
 COPY tools/mdb_init.sql /usr/local/bin/mdb_init.sql
 
-RUN chmod +x /usr/local/bin/setup_mdb.sh
+RUN chmod +x /usr/local/bin/setup_mdb.sh && \
+    chmod +x /usr/local/bin/mdb_init.sql
 
 EXPOSE 3306
 

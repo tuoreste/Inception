@@ -8,13 +8,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/otuyishi/data/wordpress_data
+      device: /Users/otuyishi/data/wordpress_data
       o: bind
   mariadb_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/otuyishi/data/mariadb_data
+      device: /Users/otuyishi/data/mariadb_data
       o: bind
 
 services:
