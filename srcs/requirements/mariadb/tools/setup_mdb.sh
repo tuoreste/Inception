@@ -26,4 +26,5 @@ fi
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
 
-exec /usr/bin/mariadbd --user=mysql --datadir="/var/lib/mysql" --init-file="$mariadb_init_file"
+# exec /usr/bin/mariadbd --user=mysql --datadir="/var/lib/mysql" --init-file="$mariadb_init_file"
+exec mysqld_safe
