@@ -1,20 +1,24 @@
-FROM debian:12.0
+FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y php php8.2-fpm wget php-mysqli
+# Install dependencies
+RUN apt-get update && apt-get install -y php php7.4-fpm wget php-mysqli netcat
 
-RUN mkdir -p /var/www/wordpress
+# Create necessary directories
+RUN mkdir -p /var/www/wordpress /run/php
 
+# Download and set up WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp && \
-    wp core download --path=/var/www/wordpress --version=6.5.2 --allow-root
+    mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir -p /tools
+# Download WordPress core files
+RUN wp core download --path=/var/www/wordpress --version=6.5.2 --allow-root
+
+# Copy setup script
+COPY ./tools/setup_wp.sh /tools/setup_wp.sh
+RUN chmod +x /tools/setup_wp.sh
 
 WORKDIR /var/www/wordpress
 
-COPY ./tools/setup_wp.sh /tools/setup_wp.sh
-
-RUN chmod +x /tools/setup_wp.sh
-
+# Run the setup script
 CMD ["/bin/bash", "/tools/setup_wp.sh"]

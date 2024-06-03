@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mysql_install_db
+mysql_upgrade
 mysqld
 # """
 # mariadb_init_file="/tools/mdb_init.sql"
