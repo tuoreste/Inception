@@ -16,9 +16,5 @@ WORKDIR /var/www/wordpress
 COPY ./tools/setup_wp.sh /tools/setup_wp.sh
 
 RUN chmod +x /tools/setup_wp.sh
-# RUN chown -R www-data:www-data /var/log
-# RUN chown -R www-data:www-data /var/www/wordpress
-
-# RUN chown -R www-data:www-data /etc/php/8.2/fpm
 
 CMD ["/bin/bash", "/tools/setup_wp.sh"]

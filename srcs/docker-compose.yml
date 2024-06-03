@@ -10,7 +10,7 @@ volumes:
 #       type: none
 #       device: /Users/otuyishi/data/wordpress_data
 #       o: bind
-#   mariadb_data:
+  mariadb_data:
 #     driver: local
 #     driver_opts:
 #       type: none
@@ -18,21 +18,22 @@ volumes:
 #       o: bind
 
 services:
-#   mariadb:
+  mariadb:
+    build: ./requirements/mariadb/.
 #     build:
 #       context: ./requirements/mariadb
 #       dockerfile: Dockerfile.mariadb
-#     container_name: mariadb
-#     image: mariadb
-#     environment:
-#       DATABASE_NAME: ${DB_NAME}
-#       DATABASE_USERNAME: ${DB_USERNAME}
-#       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-#       DATABASE_HOST: ${DATABASE_HOST}
-#     volumes:
-#       - mariadb_data:/var/lib/mysql
-#     networks:
-#       - inceptionnet
+    container_name: mariadb
+    image: mariadb
+    environment:
+      DATABASE_NAME: ${DB_NAME}
+      DATABASE_USERNAME: ${DB_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inceptionnet
 #     restart: always
 #     healthcheck:
 #       test: ["CMD", "curl", "-f", "http://localhost"]
@@ -42,22 +43,22 @@ services:
 
   wordpress:
     build: ./requirements/wordpress/.
-#       context: ./requirements/wordpress
-#       dockerfile: Dockerfile.wordpress
     container_name: wordpress
     image: wordpress
-#     env_file:
-#       - .env
+    env_file:
+      - .env
     volumes:
       - wordpress_data:/var/www/html
-#     environment:
-#       DATABASE_NAME: ${DB_NAME}
-#       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-#       DATABASE_USERNAME: ${DB_USERNAME}
-#       DATABASE_HOST: ${DATABASE_HOST}
-#       WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
-#       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
-#       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+    environment:
+      DATABASE_NAME: ${DB_NAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_USERNAME: ${DB_USERNAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+    depends_on:
+      - mariadb
 #     # depends_on:
 #     #   mariadb:
 #     #     condition: service_healthy
