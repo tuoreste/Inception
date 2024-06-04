@@ -1,7 +1,10 @@
 #!/bin/bash
 
-mysql_upgrade
-mysqld
+# mysqld
+# mysqld
+
+# tail -f;
+
 # """
 # mariadb_init_file="/tools/mdb_init.sql"
 # bootstrap_file="/tools/bootstrap.sql"
@@ -22,9 +25,15 @@ mysqld
 # 	run_bootstrap
 # fi
 
-# mkdir -p /run/mysqld
-# chown mysql:mysql /run/mysqld
+
 
 # exec /usr/bin/mariadbd --user=mysql --datadir="/var/lib/mysql" --init-file="$mariadb_init_file"
-# # exec mysqld_safe
+mysqld
 # """
+
+
+# Run the initial SQL script
+# mysql -u root < /etc/mysql/mdb_init.sql
+
+# Tail the MariaDB log to keep the container running
+# exec mysqld_safe

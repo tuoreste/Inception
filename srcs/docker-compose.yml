@@ -2,7 +2,7 @@ services:
   mariadb:
     build: ./requirements/mariadb/.
     container_name: mariadb
-    image: mariadb
+    image: mariadb:10.11.6
     environment:
       DATABASE_NAME: ${DB_NAME}
       DATABASE_USERNAME: ${DB_USERNAME}

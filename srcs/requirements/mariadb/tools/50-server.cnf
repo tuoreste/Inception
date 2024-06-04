@@ -5,9 +5,9 @@
 # this is read by the standalone daemon and embedded servers
 [server]
 # this is only for the mysqld standalone daemon
+socket = /var/lib/mysql/mysqld.sock
 [mysqld]
 init_file = /etc/mysql/mdb_init.sql
-
 #
 # * Basic Settings
 #
