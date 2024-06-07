@@ -12,11 +12,16 @@ init_file = /etc/mysql/mdb_init.sql
 # * Basic Settings
 #
 
+innodb_log_file_size = 100M
+innodb_log_files_in_group = 2
+innodb_file_per_table = ON
+
 user                    = mysql
 pid-file                = /run/mysqld/mysqld.pid
 basedir                 = /usr
 datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
+skip-external-locking
 port					= 3306
 # Broken reverse DNS slows down connections considerably and name resolve is
 # safe to skip if there are no "host by domain name" access grants
@@ -116,4 +121,4 @@ collation-server      = utf8mb4_general_ci
 # This group is only read by MariaDB-10.11 servers.
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
-[mariadb-10.11]
+[mariadb-10.5]

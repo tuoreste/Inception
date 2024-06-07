@@ -16,9 +16,8 @@ RUN wp core download --path=/var/www/wordpress --version=6.5.2 --allow-root
 
 # Copy setup script
 COPY ./tools/setup_wp.sh /tools/setup_wp.sh
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 RUN chmod +x /tools/setup_wp.sh
 
-WORKDIR /var/www/wordpress
-
 # Run the setup script
-CMD ["/bin/bash", "/tools/setup_wp.sh"]
+CMD ["./tools/setup_wp.sh"]

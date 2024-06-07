@@ -1,39 +1,23 @@
 #!/bin/bash
 
-# mysqld
-# mysqld
+# Remove any old MySQL or MariaDB files
+rm -rf /var/lib/mysql/*
+rm -rf /var/lib/mysql-files /var/lib/mysql-keyring
 
-# tail -f;
+# Initialize MariaDB data directory
+mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
-# """
-# mariadb_init_file="/tools/mdb_init.sql"
-# bootstrap_file="/tools/bootstrap.sql"
+# Start MariaDB in safe mode to initialize it
+mysqld_safe --skip-networking &
 
-# run_bootstrap() {
-# 	cat <<EOF > "$bootstrap_file"
-# CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
-# GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-# FLUSH PRIVILEGES;
-# EOF
-# 	mariadbd --user=mysql --bootstrap < "$bootstrap_file"
-# 	rm -f "$bootstrap_file"
-# }
+# Wait for MariaDB to start
+sleep 10
 
-# database_exists=$(mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "SHOW DATABASES LIKE '${MYSQL_DATABASE}';" | grep "${MYSQL_DATABASE}")
+# Run the initialization SQL script
+mysql -u root < /etc/mysql/mdb_init.sql
 
-# if [ -z "$database_exists" ]; then
-# 	run_bootstrap
-# fi
+# Shutdown MariaDB
+mysqladmin -u root shutdown
 
-
-
-# exec /usr/bin/mariadbd --user=mysql --datadir="/var/lib/mysql" --init-file="$mariadb_init_file"
-mysqld
-# """
-
-
-# Run the initial SQL script
-# mysql -u root < /etc/mysql/mdb_init.sql
-
-# Tail the MariaDB log to keep the container running
-# exec mysqld_safe
+# Start MariaDB normally
+exec mysqld
