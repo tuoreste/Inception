@@ -6,11 +6,12 @@
 [server]
 # this is only for the mysqld standalone daemon
 
-init_file = /etc/mysql/mdb_init.sql
-[mysqld]
-socket=/var/lib/mysql/mysql.sock 
-[client]
+
+[client-server]
 socket=/var/lib/mysql/mysql.sock
+
+[mysqld]
+init_file = /etc/mysql/mdb_init.sql
 
 #
 # * Basic Settings
@@ -29,7 +30,7 @@ port					= 3306
 
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-bind-address            = 127.0.0.1
+bind-address            = 0.0.0.0
 
 #
 # * Fine Tuning

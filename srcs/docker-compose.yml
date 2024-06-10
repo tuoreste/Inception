@@ -12,7 +12,7 @@ services:
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     volumes:
-      - ./data/mariadb/:/var/lib/mysql
+      - mariadb_auto:/var/lib/mysql
     networks:
       - inceptionnet
     restart: always
@@ -75,7 +75,8 @@ networks:
     driver: bridge
     name: inceptionnet
 
-# volumes:
+volumes:
+  mariadb_auto:
 #   mariadb:
 #    name: ${MARIADB_DATABASE}
 #    driver_opts:
