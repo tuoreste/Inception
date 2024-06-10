@@ -5,16 +5,16 @@
 # this is read by the standalone daemon and embedded servers
 [server]
 # this is only for the mysqld standalone daemon
-socket = /var/lib/mysql/mysqld.sock
-[mysqld]
+
 init_file = /etc/mysql/mdb_init.sql
+[mysqld]
+socket=/var/lib/mysql/mysql.sock 
+[client]
+socket=/var/lib/mysql/mysql.sock
+
 #
 # * Basic Settings
 #
-
-innodb_log_file_size = 100M
-innodb_log_files_in_group = 2
-innodb_file_per_table = ON
 
 user                    = mysql
 pid-file                = /run/mysqld/mysqld.pid
@@ -29,7 +29,7 @@ port					= 3306
 
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-bind-address            = mariadb
+bind-address            = 127.0.0.1
 
 #
 # * Fine Tuning

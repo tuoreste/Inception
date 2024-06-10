@@ -3,13 +3,16 @@ services:
     build: ./requirements/mariadb/.
     container_name: mariadb
     image: mariadb:10.5.23
+    env_file:
+      - .env
     environment:
-      DATABASE_NAME: ${DB_NAME}
-      DATABASE_USERNAME: ${DB_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_HOST: ${DATABASE_HOST}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     volumes:
-      - ./mariadb/data/:/var/lib/mysql
+      - ./data/mariadb/:/var/lib/mysql
     networks:
       - inceptionnet
     restart: always
@@ -26,12 +29,12 @@ services:
     env_file:
       - .env
     volumes:
-      - ./wordpress/data/:/var/www/html
+      - ./data/wordpress/:/var/www/html
     environment:
-      DATABASE_NAME: ${DB_NAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_USERNAME: ${DB_USERNAME}
-      DATABASE_HOST: ${DATABASE_HOST}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
@@ -52,7 +55,7 @@ services:
     container_name: nginx
     image: nginx
     volumes:
-      - ./wordpress/data/:/var/www/html
+      - ./data/wordpress/:/var/www/html
     ports:
       - "443:443"
     depends_on:
@@ -71,3 +74,18 @@ networks:
   inceptionnet:
     driver: bridge
     name: inceptionnet
+
+# volumes:
+#   mariadb:
+#    name: ${MARIADB_DATABASE}
+#    driver_opts:
+#     type: none
+#     device: /home/otuyishi/data/mariadb
+#     o: bind
+    
+#   wordpress:
+#    name: ${WORDPRESS_DB_NAME}
+#    driver_opts:
+#     type: none
+#     device: /home/otuyishi/data/wordpress
+#     o: bind

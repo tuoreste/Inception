@@ -1,6 +1,6 @@
 server {
 	listen 443 ssl;
-	server_name otuyishi.42.fr;
+	server_name localhost;
 
 	ssl_certificate /etc/nginx/ssl/otuyishi.crt;
 	ssl_certificate_key /etc/nginx/ssl/otuyishi.key;

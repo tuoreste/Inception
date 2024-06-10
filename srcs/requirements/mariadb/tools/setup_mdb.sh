@@ -1,23 +1,19 @@
 #!/bin/bash
 
-# Remove any old MySQL or MariaDB files
-rm -rf /var/lib/mysql/*
-rm -rf /var/lib/mysql-files /var/lib/mysql-keyring
+# : "${WORDPRESS_DB_USER:?WORDPRESS_DB_USER must be set}"
+# : "${WORDPRESS_DB_HOST:?WORDPRESS_DB_HOST must be set}"
+# : "${WORDPRESS_USER_PASSWORD:?WORDPRESS_USER_PASSWORD must be set}"
+# : "${WORDPRESS_DB_NAME:?WORDPRESS_DB_NAME must be set}"
+# : "${WORDPRESS_ADMIN_PASSWORD:?WORDPRESS_ADMIN_PASSWORD must be set}"
 
-# Initialize MariaDB data directory
-mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+# Commands to execute with environment variables
+mysql << EOF
+CREATE USER '$WORDPRESS_DB_USER'@'$WORDPRESS_DB_HOST' IDENTIFIED BY '$WORDPRESS_USER_PASSWORD';
+CREATE DATABASE '$WORDPRESS_DB_NAME';
+GRANT ALL PRIVILEGES ON \`$WORDPRESS_DB_NAME\`.* TO '$WORDPRESS_DB_USER'@'$WORDPRESS_DB_HOST';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$WORDPRESS_ADMIN_PASSWORD';
+FLUSH PRIVILEGES;
+EOF
 
-# Start MariaDB in safe mode to initialize it
-mysqld_safe --skip-networking &
 
-# Wait for MariaDB to start
-sleep 10
-
-# Run the initialization SQL script
-mysql -u root < /etc/mysql/mdb_init.sql
-
-# Shutdown MariaDB
-mysqladmin -u root shutdown
-
-# Start MariaDB normally
-exec mysqld
+# service mariadb start 
