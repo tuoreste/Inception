@@ -1,3 +1,5 @@
+version: '3.7'
+
 services:
   mariadb:
     build: ./requirements/mariadb/.
@@ -12,15 +14,16 @@ services:
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     volumes:
-      - mariadb_auto:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     networks:
       - inceptionnet
     restart: always
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost"]
-    #   interval: 5s
-    #   timeout: 5s
-    #   retries: 100
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
 
   wordpress:
     build: ./requirements/wordpress/.
@@ -29,7 +32,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data/wordpress/:/var/www/html
+      - wordpress-data:/var/www/html
+    restart: always
     environment:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
@@ -39,54 +43,39 @@ services:
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
     depends_on:
-      - mariadb
-        # condition: service_healthy
+      mariadb:
+        condition: service_healthy
     networks:
       - inceptionnet
-    restart: always
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost"]
-    #   interval: 5s
+    #   interval: 10s
     #   timeout: 5s
-    #   retries: 100
+    #   retries: 10
+    #   start_period: 2s
 
   nginx:
     build: ./requirements/nginx/.
     container_name: nginx
     image: nginx
     volumes:
-      - ./data/wordpress/:/var/www/html
+      - wordpress-data:/var/www/html
     ports:
       - "443:443"
     depends_on:
       - wordpress
-        # condition: service_healthy
+      # wordpress:
+      #   condition: service_healthy
     networks:
       - inceptionnet
     restart: always
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost"]
-    #   interval: 5s
-    #   timeout: 5s
-    #   retries: 100
 
 networks:
   inceptionnet:
-    driver: bridge
     name: inceptionnet
 
 volumes:
-  mariadb_auto:
-#   mariadb:
-#    name: ${MARIADB_DATABASE}
-#    driver_opts:
-#     type: none
-#     device: /home/otuyishi/data/mariadb
-#     o: bind
-    
-#   wordpress:
-#    name: ${WORDPRESS_DB_NAME}
-#    driver_opts:
-#     type: none
-#     device: /home/otuyishi/data/wordpress
-#     o: bind
+  mariadb-data:
+    name: mariadb-data
+  wordpress-data:
+    name: wordpress-data

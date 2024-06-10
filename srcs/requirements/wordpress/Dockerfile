@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 # Install dependencies
-RUN apt-get update && apt-get install -y php php7.4-fpm wget php-mysqli netcat
+RUN apt-get update && apt-get install -y php php7.4-fpm php-gd wget php-mysqli
 
 # Create necessary directories
 RUN mkdir -p /var/www/html /run/php
@@ -23,10 +23,13 @@ COPY ./tools/setup_wp.sh /usr/local/bin/setup_wp.sh
 RUN chmod +x /usr/local/bin/setup_wp.sh
 # COPY ./tools/wp-config.php .
 
-
 RUN chown -R www-data:www-data /var/log/
 RUN chown -R www-data:www-data /var/www/html
-USER www-data:www-data
+RUN chown -R www-data:www-data /run/php
+
+USER www-data
+
+EXPOSE 9000
 
 # Run the setup script
 CMD ["/usr/local/bin/setup_wp.sh"]
