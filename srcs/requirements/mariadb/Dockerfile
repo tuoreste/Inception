@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade && \
-	apt-get install -y mariadb-server
+	apt-get install -y apt-utils mariadb-server 
 
 EXPOSE 3306
 

@@ -81,17 +81,23 @@ networks:
 
 volumes:
   mariadb-data:
-    driver: local
-    driver_opts:
-      devices: /home/otuyishi/data/
-      o: bind
-      type: none
+    name: mariadb-data
   wordpress-data:
-    driver: local
-    driver_opts:
-      devices: /home/otuyishi/data/
-      o: bind
-      type: none
+    name: wordpress-data
+
+# volumes:
+#   mariadb-data:
+#     driver: local
+#     driver_opts:
+#       device: /home/otuyishi/data
+#       o: bind
+#       type: none
+#   wordpress-data:
+#     driver: local
+#     driver_opts:
+#       device: /home/otuyishi/data
+#       o: bind
+#       type: none
 
 ### NOTES:
 

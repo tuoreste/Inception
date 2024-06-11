@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 wp config create --force \
 					--url=$WP_URL \
 					--dbname=$WORDPRESS_DB_NAME \
