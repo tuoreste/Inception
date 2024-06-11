@@ -47,12 +47,12 @@ services:
         condition: service_healthy
     networks:
       - inceptionnet
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost"]
-    #   interval: 10s
-    #   timeout: 5s
-    #   retries: 10
-    #   start_period: 2s
+    healthcheck:
+      test: ["CMD", "wp", "core", "is-installed"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
 
   nginx:
     build: ./requirements/nginx/.
@@ -63,12 +63,17 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - wordpress
-      # wordpress:
-      #   condition: service_healthy
+      wordpress:
+        condition: service_healthy
     networks:
       - inceptionnet
     restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-kf", "https://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
 
 networks:
   inceptionnet:
