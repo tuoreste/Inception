@@ -1,6 +1,8 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y apt-utils nginx openssl curl
+#RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+RUN apt-get update && apt-get install -y nginx openssl curl
 
 RUN mkdir -p /etc/nginx/ssl && \
 	openssl req -nodes -newkey rsa:4096 -x509 -sha256 -days 365 \

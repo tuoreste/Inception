@@ -1,7 +1,9 @@
 FROM debian:bullseye
 
+#RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
 RUN apt-get update && apt-get upgrade && \
-	apt-get install -y apt-utils mariadb-server 
+	apt-get install -y mariadb-server 
 
 EXPOSE 3306
 

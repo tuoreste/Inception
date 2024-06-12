@@ -1,6 +1,9 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y apt-utils php php7.4-fpm php-gd wget php-mysqli
+# RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+RUN apt-get update && apt-get install -y php php7.4-fpm php-gd wget php-mysqli 
+
 
 RUN mkdir -p /var/www/html /run/php
 
