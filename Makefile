@@ -6,14 +6,14 @@
 #    By: otuyishi <otuyishi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 17:58:23 by otuyishi          #+#    #+#              #
-#    Updated: 2024/06/12 13:28:05 by otuyishi         ###   ########.fr        #
+#    Updated: 2024/06/13 07:32:38 by otuyishi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DOCKER_COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
-WORDPRESS_DATA = /Users/otuyishi/data/wordpress_data
-MARIADB_DATA = /Users/otuyishi/data/mariadb_data
+WORDPRESS_DATA = /home/otuyishi/data/wordpress_data
+MARIADB_DATA = /home/otuyishi/data/mariadb_data
 
 .PHONY: all build up down logs restart create_volumes delete_volumes
 
