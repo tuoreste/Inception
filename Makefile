@@ -6,28 +6,28 @@
 #    By: otuyishi <otuyishi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 17:58:23 by otuyishi          #+#    #+#              #
-#    Updated: 2024/06/13 07:32:38 by otuyishi         ###   ########.fr        #
+#    Updated: 2024/06/13 13:03:09 by otuyishi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DOCKER_COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
-WORDPRESS_DATA = /home/otuyishi/data/wordpress_data
-MARIADB_DATA = /home/otuyishi/data/mariadb_data
+# WORDPRESS_DATA = /home/otuyishi/data/wordpress_data
+# MARIADB_DATA = /home/otuyishi/data/mariadb_data
 
-.PHONY: all build up down logs restart create_volumes delete_volumes
+# all: create_volumes up
 
-all: create_volumes up
+all: up
 
-create_volumes:
-	@if [ ! -d $(WORDPRESS_DATA) ]; then \
-		echo "Creating $(WORDPRESS_DATA)"; \
-		mkdir -p $(WORDPRESS_DATA); \
-	fi
-	@if [ ! -d $(MARIADB_DATA) ]; then \
-		echo "Creating $(MARIADB_DATA)"; \
-		mkdir -p $(MARIADB_DATA); \
-	fi
+# create_volumes:
+# 	@if [ ! -d $(WORDPRESS_DATA) ]; then \
+# 		echo "Creating $(WORDPRESS_DATA)"; \
+# 		mkdir -p $(WORDPRESS_DATA); \
+# 	fi
+# 	@if [ ! -d $(MARIADB_DATA) ]; then \
+# 		echo "Creating $(MARIADB_DATA)"; \
+# 		mkdir -p $(MARIADB_DATA); \
+# 	fi
 
 delete_volumes:
 	@rm -rf $(WORDPRESS_DATA)
@@ -39,7 +39,7 @@ down:
 start:
 	$(DOCKER_COMPOSE) start
 
-build: create_volumes
+build:
 	@echo "Build containers"
 	$(DOCKER_COMPOSE) build
 

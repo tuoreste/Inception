@@ -2,11 +2,9 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade && apt-get install -y php php7.4-fpm php-gd wget php-mysqli 
 
-
 RUN mkdir -p /var/www/html /run/php
 
 WORKDIR /var/www/html
-
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 chmod +x wp-cli.phar && \

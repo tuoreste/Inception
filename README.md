@@ -49,4 +49,3 @@ The `docker-compose.yml` file orchestrates the multi-container setup, specifying
 Begin by cloning the project repository from GitHub to your local machine:
 -->project in progress
 
-
