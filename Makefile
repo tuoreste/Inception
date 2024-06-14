@@ -10,24 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-DOCKER_COMPOSE = docker compose -f ./srcs/docker-compose.yml
-
-# WORDPRESS_DATA = /home/otuyishi/data/wordpress_data
-# MARIADB_DATA = /home/otuyishi/data/mariadb_data
-
-# all: create_volumes up
+DOCKER_COMPOSE = docker compose -f /home/otuyishi/Inception/srcs/docker-compose.yml
 
 all: up
 
-# create_volumes:
-# 	@if [ ! -d $(WORDPRESS_DATA) ]; then \
-# 		echo "Creating $(WORDPRESS_DATA)"; \
-# 		mkdir -p $(WORDPRESS_DATA); \
-# 	fi
-# 	@if [ ! -d $(MARIADB_DATA) ]; then \
-# 		echo "Creating $(MARIADB_DATA)"; \
-# 		mkdir -p $(MARIADB_DATA); \
-# 	fi
+chown -R $(whoami):$(whoami) /home/otuyishi/data/wp
+chown -R $(whoami):$(whoami) /home/otuyishi/data/db
 
 delete_volumes:
 	@rm -rf $(WORDPRESS_DATA)

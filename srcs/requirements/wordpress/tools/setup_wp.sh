@@ -18,7 +18,7 @@ wp user create ${WORDPRESS_DB_USER} \
 				${WORDPRESS_USER_EMAIL} \
 				--user_pass=${WORDPRESS_USER_PASSWORD}
 
-wp option update home https://localhost
-wp option update siteurl  https://localhost
+wp option update home $WP_URL
+wp option update siteurl  $WP_URL
 
 exec php-fpm7.4 -F

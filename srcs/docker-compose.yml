@@ -83,13 +83,13 @@ volumes:
   mariadb-data:
     driver: local
     driver_opts:
-      device: /home/otuyishi/data
+      device: /home/otuyishi/data/db
       o: bind
       type: none
   wordpress-data:
     driver: local
     driver_opts:
-      device: /home/otuyishi/data
+      device: /home/otuyishi/data/wp
       o: bind
       type: none
 
