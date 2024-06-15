@@ -6,4 +6,6 @@ echo "FLUSH PRIVILEGES;
 	GRANT ALL PRIVILEGES on \`${WORDPRESS_DB_NAME}\`.* TO '${WORDPRESS_DB_USER}'@'%';
 	FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 
+mariadb-install-db
+
 exec mariadbd --user=mysql

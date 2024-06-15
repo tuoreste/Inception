@@ -14,8 +14,8 @@ DOCKER_COMPOSE = docker compose -f /home/otuyishi/Inception/srcs/docker-compose.
 
 all: up
 
-chown -R $(whoami):$(whoami) /home/otuyishi/data/wp
-chown -R $(whoami):$(whoami) /home/otuyishi/data/db
+#chown -R $(whoami):$(whoami) /home/otuyishi/data/wp
+#chown -R $(whoami):$(whoami) /home/otuyishi/data/db
 
 delete_volumes:
 	@rm -rf $(WORDPRESS_DATA)
