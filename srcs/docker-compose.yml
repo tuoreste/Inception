@@ -1,0 +1,96 @@
+version: '3.7'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb/.
+    container_name: mariadb
+    image: mariadb:10.5.23
+    env_file:
+      - .env
+    environment:
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+    volumes:
+      - /Users/otuyishi/Documents/Or/Inception/data/mariadb-data:/var/lib/mysql
+    networks:
+      - inceptionnet
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 3
+ 
+  wordpress:
+    build: ./requirements/wordpress/.
+    container_name: wordpress
+    image: wordpress
+    env_file:
+      - .env
+    volumes:
+      - /Users/otuyishi/Documents/Or/Inception/data/wordpress-data:/var/www/html
+    restart: always
+    environment:
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - inceptionnet
+
+  nginx:
+    build: ./requirements/nginx/.
+    container_name: nginx
+    image: nginx
+    volumes:
+      - /Users/otuyishi/Documents/Or/Inception/data/wordpress-data:/var/www/html
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    networks:
+      - inceptionnet
+    restart: always
+
+networks:
+  inceptionnet:
+    name: inceptionnet
+
+### NOTES:
+
+## YAML stands for "YAML Ain't Markup Language."
+
+## Define YAML: human-readable data serialization standard \
+                #that can be used in conjunction with all programming \
+                #languages and is often used to write configuration files.
+
+##-->YAML Purpose<--
+        #->writing configuration files(readable & simple)
+        #->serializing data to pass it between different systems or components
+        #->Configuration Management: In DevOps, YAML files are often used to manage \
+            #infrastructure as code (IaC) tools, such as Kubernetes and Docker Compose.
+        #->Object Persistence: YAML can be used to store the state of an object between \
+            #program runs in a human-readable format.
+
+##-->YAML Advantages<--
+        #->Readability
+        #->Human-friendly
+        #->Language-agnostic: can be used across different programming environments.
+        #->Flexible and Powerful: supports complex data structures like lists, maps, \
+                                  #and scalars, allowing for rich configurations.
+        #->Widely Adopted
+
+##-->YAML Limitations<--
+        #->Whitespace Sensitivity
+        #->Complex Syntax for Complex Data
+        #->Performance
+        #->Lack of Standardization: Different YAML parsers can interpret the same YAML \
+          #file differently, leading to potential inconsistencies.

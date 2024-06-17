@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "FLUSH PRIVILEGES;
+	CREATE DATABASE IF NOT EXISTS \`${WORDPRESS_DB_NAME}\`;
+	CREATE USER IF NOT EXISTS '${WORDPRESS_DB_USER}'@'%' IDENTIFIED BY '${WORDPRESS_DB_PASSWORD}';
+	GRANT ALL PRIVILEGES on \`${WORDPRESS_DB_NAME}\`.* TO '${WORDPRESS_DB_USER}'@'%';
+	FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
+
+mariadb-install-db
+
+exec mariadbd --user=mysql

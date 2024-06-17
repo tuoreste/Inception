@@ -1,0 +1,32 @@
+[server]
+
+[client-server]
+#The socket directive specifies the path to the Unix socket file
+#used for local communication between the MySQL client and server.
+socket=/var/lib/mysql/mysql.sock
+
+[mysqld]
+init_file = /etc/mysql/mdb_init.sql
+# Initialization: The primary purpose of the init_file is to initialize the database
+# with specific SQL commands every time the MySQL server starts.
+
+user                    = mysql #the MySQL server writes its process ID (PID)
+pid-file                = /run/mysqld/mysqld.pid #MySQL server writes its process ID
+basedir                 = /usr #Specifies the base directory for the MySQL installation
+datadir                 = /var/lib/mysql #Specifies the directory where MySQL stores its data files.
+tmpdir                  = /tmp #MySQL stores temporary files
+skip-external-locking
+port					= 3306 #specifies the TCP/IP port on which the MySQL server listens for connections.
+
+bind-address            = 0.0.0.0  #setting determines which IP addresses MySQL will accept connections from.
+
+expire_logs_days        = 10
+
+character-set-server  = utf8mb4
+collation-server      = utf8mb4_general_ci
+
+[embedded]
+
+[mariadb]
+
+[mariadb-10.5]
