@@ -14,7 +14,7 @@ services:
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     volumes:
-      - /home/otuyishi/data/mariadb-data:/var/lib/mysql
+      - /Users/otuyishi/Documents/Or/Inception/data/mariadb-data:/var/lib/mysql
     networks:
       - inceptionnet
     restart: always
@@ -22,7 +22,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       retries: 3
-
+ 
   wordpress:
     build: ./requirements/wordpress/.
     container_name: wordpress
@@ -30,7 +30,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /home/otuyishi/data/wordpress-data:/var/www/html
+      - /Users/otuyishi/Documents/Or/Inception/data/wordpress-data:/var/www/html
     restart: always
     environment:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
@@ -51,7 +51,7 @@ services:
     container_name: nginx
     image: nginx
     volumes:
-      - /home/otuyishi/data/wordpress-data:/var/www/html
+      - /Users/otuyishi/Documents/Or/Inception/data/wordpress-data:/var/www/html
     ports:
       - "443:443"
     depends_on:
@@ -63,26 +63,6 @@ services:
 networks:
   inceptionnet:
     name: inceptionnet
-
-      #volumes:
-      #mariadb-data:
-      #driver: local
-      #driver_opts:
-      #device: /home/otuyishi/data/db
-      #o: bind
-      #type: none
-      #wordpress-data:
-      #driver: local
-      # driver_opts:
-      #device: /home/otuyishi/data/wp
-      #o: bind
-      #type: none
-
-# volumes:
-#   mariadb-data:
-#     name: mariadb-data
-#   wordpress-data:
-#     name: wordpress-data
 
 ### NOTES:
 

@@ -6,16 +6,13 @@
 #    By: otuyishi <otuyishi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 17:58:23 by otuyishi          #+#    #+#              #
-#    Updated: 2024/06/13 13:03:09 by otuyishi         ###   ########.fr        #
+#    Updated: 2024/06/17 09:22:02 by otuyishi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DOCKER_COMPOSE = docker compose -f /home/otuyishi/Inception/srcs/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f /Users/otuyishi/Documents/Or/Inception/srcs/docker-compose.yml
 
 all: up
-
-#chown -R $(whoami):$(whoami) /home/otuyishi/data/wp
-#chown -R $(whoami):$(whoami) /home/otuyishi/data/db
 
 delete_volumes:
 	@rm -rf $(WORDPRESS_DATA)

@@ -26,4 +26,5 @@ wp option update home $WP_URL --allow-root
 wp option update siteurl  $WP_URL --allow-root
 
 chown -R www-data:www-data /var/www/html/*
+
 exec php-fpm7.4 -F
