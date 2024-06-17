@@ -5,7 +5,7 @@ essential services using Docker: MariaDB, Nginx, and WordPress. We utilize Docke
 ensuring they work seamlessly together. Volumes are used to ensure data persistence, and sensitive data is managed using a `.env` file.
 
 ## Project Structure
-
+```
 Inception/
 ├── .gitignore
 ├── License
@@ -29,7 +29,7 @@ Inception/
             └── tools/
                 ├── conf
                 └── scripts
-
+```
 ## Services
 
 ### 1. MariaDB
