@@ -67,7 +67,9 @@ To get started with the Inception project:
 
 ## Recommendation For Intro to Docker Containerization and Kubernetes
 
-1. ```www.udemy.com/course/docker-kubernetes-the-practical-guide```
+1. ```
+   www.udemy.com/course/docker-kubernetes-the-practical-guide
+   ```
 
 ## Conclusion
 
