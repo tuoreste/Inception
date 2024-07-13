@@ -65,6 +65,10 @@ To get started with the Inception project:
 2. Create a `.env` file with the necessary environment variables(refer to docker-compose file for necessary variables).
 3. Use Docker Compose to build and start the services:
 
+## Recommendation For Intro to Docker Containerization and Kubernetes
+
+1. `www.udemy.com/course/docker-kubernetes-the-practical-guide`
+
 ## Conclusion
 
 The Inception project demonstrates how to effectively containerize and manage a multi-service application using Docker and Docker Compose. By leveraging containers, we ensure that our application is easy to deploy, scale, and maintain, with persistent data storage and secure management of sensitive information.
