@@ -4,15 +4,9 @@ services:
   mariadb:
     build: ./requirements/mariadb/.
     container_name: mariadb
-    image: mariadb:10.5.23
+    image: mariadb
     env_file:
       - .env
-    environment:
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     volumes:
       - /Users/otuyishi/Documents/Or/Inception/data/mariadb-data:/var/lib/mysql
     networks:
@@ -32,14 +26,6 @@ services:
     volumes:
       - /Users/otuyishi/Documents/Or/Inception/data/wordpress-data:/var/www/html
     restart: always
-    environment:
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-      WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
-      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
-      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
     depends_on:
       mariadb:
         condition: service_healthy
